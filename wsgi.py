@@ -6,7 +6,7 @@ from waitress import serve
 if __name__ == '__main__':
     # Production server
     print("Starting Waitress production server...")
-    serve(app, host='192.168.1.238', port=443)
+    serve(app, host='0.0.0.0', port=443)
 
     
 
