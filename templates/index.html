@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask AI APP</title>
+    <style>
+
+        div.first-center
+{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh; 
+    
+}
+div.container-center
+{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(204, 187, 255);
+    margin:auto;
+    height: 200px;
+    width:400px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+input[type=text]
+{ 
+border: none;
+padding:10px;
+font-size:18px;
+    
+    transition: all 4.5s ease-out;
+}
+input[type=text]:hover
+{
+    cursor:pointer;
+    background-color: rgb(114, 107, 107);
+    
+    transition: all 5s ease-out;
+    
+}
+input[type=text]:hover::placeholder { color: white; }
+
+::placeholder {
+   text-align: center; 
+}
+
+.form_center
+{
+    margin: top 100px;
+}
+
+button
+{
+    font-size:15px;
+    width:150px;
+}
+#answer
+{
+    max-width: 80vw;
+    max-height: 95vh;
+}
+.button_class
+{
+    margin:auto;
+}
+.button_class:hover{
+    cursor:pointer;
+    background-color: rgb(90, 123, 152);
+}
+div#answer{
+
+width:800px;
+height:auto;
+padding-left:15px;
+padding-right:15px;
+}
+    </style>
+</head>
+<body>
+
+<div class="first-center">
+    
+
+        <h1 style="text-align:center">COHERE AI SEARCH ENGINE</h1>
+        <br>
+        <br>
+
+    
+        <form class="form_center">
+            <div class="container-center">
+
+            
+            <input type="text" id="query" placeholder="Ask AI anything" class="input_class">
+            <br>
+            <br>
+            <button class="button_class" onclick="AIsearch(event)">SUBMIT</button>
+            </div>
+            <br>
+            <div style="background-color: rgba(246, 251, 251, 0.932);" id="answer"></div>
+        </form>
+    
+</div>
+    <script>
+        function AIsearch(event) {
+    event.preventDefault();
+    document.getElementById("answer").innerHTML =null;
+    const query = document.getElementById("query").value;
+    fetch("/AI", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query })
+    })
+    .then(response => { 
+        if (!response.ok) { // Check if the response was successful (e.g., 2xx status)
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json(); // Return the promise for the JSON body
+    })
+    .then(data => {
+        // Now 'data' will be the parsed JSON object from the server
+        const display = document.getElementById("answer")
+        display.append(data); // Assuming 'data' is a string or has a .toString() method for display
+        // You might want to append 'display' to an element in your DOM, e.g.:
+        // document.body.appendChild(display);
+        //console.log("Response data:", data); // Log the actual data
+    })
+    .catch(error => {
+        console.error("There was a problem with the fetch operation:", error);
+        // You can update the UI to show the error message to the user
+    });
+}
+
+
+
+    </script>
+</body>
+</html>
