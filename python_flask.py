@@ -8,9 +8,9 @@ def create_app():
 
 @app.route('/')
 def index():
-    return render_template('index.html')  # Fixed: Added quotes around template name
+    return render_template('index.html') 
 
-@app.route('/AI', methods=['POST'])  # Fixed: 'methods' not 'method'
+@app.route('/AI', methods=['POST'])  
 
 def AI():
     data = request.get_json()
@@ -29,8 +29,8 @@ def AI():
         return jsonify({"error": "Query is required"}), 400
 
 
-    # Fixed: Moved Cohere client inside the function and fixed indentation
-    co = cohere.ClientV2("p1N0vhx8yfUzcK4ZIcGVyL9yQAG8wJ6THJX0q8a1")
+    Cohere_API_key = 'p1N0vhx8yfUzcK4ZIcGVyL9yQAG8wJ6THJX0q8a1'
+    co = cohere.ClientV2(Cohere_API_key)
 
     
     response = co.chat(
@@ -43,4 +43,5 @@ def AI():
         
     
 if __name__ == '__main__':
+
  app.run(debug=False)
