@@ -29,7 +29,7 @@ def AI():
         return jsonify({"error": "Query is required"}), 400
 
 
-    Cohere_API_key = 'p1N0vhx8yfUzcK4ZIcGVyL9yQAG8wJ6THJX0q8a1'
+  
     co = cohere.ClientV2(Cohere_API_key)
 
     
@@ -45,3 +45,4 @@ def AI():
 if __name__ == '__main__':
 
  app.run(debug=False)
+
